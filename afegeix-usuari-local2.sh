@@ -50,3 +50,4 @@ else
 	echo "No tienes poder aqui >:("	
 	exit 1
 fi
+
