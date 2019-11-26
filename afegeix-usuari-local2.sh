@@ -29,5 +29,25 @@ then
 		u_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		echo "${u_name}:${u_pass}" | chpasswd
 		c_pass=$(cat /etc/shadow | grep ${u_name})
+# Check to see if the passwd command succeeded.
+		if [[ "$u_name"="$c_pass" ]]
+		then
+			echo "Contrassenya modificada satisfactoriament"
+		else
+			exit 2
+		fi
+# Force password change on first login.
+		passwd -e ${u_name}
+# Display the username, password, and the host where the user was created.
+		echo "Nom d'usuari: ${u_name}"
+		echo "Comentari: ${f_name}"
+		echo "Contrassenya: ${u_pass}"
 
+	else
+		echo "No tienes argumentos >:("
+	fi
+else
+	echo "No tienes poder aqui >:("	
+	exit 1
+fi
 
